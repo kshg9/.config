@@ -1,8 +1,23 @@
-# .config
+# ⚙️ .config
 
-Personal incremental configs.
+My personal incremental dotfiles.
 
-> [!NOTE]
-> For a clean configuration approach, see [Komorebi common workflow](https://lgug2z.github.io/komorebi/common-workflows/komorebi-config-home.html).
+> **Note:**  
+> This repo is organized **branch-wise**:
+> - `windows`: Configs & tools used on Windows setups
+> - `nixos`: NixOS and Home Manager configuration
+> - `main`: Scratchpad or minimal base
 
-Copy or adapt any configs as needed for your setup.
+## 🧱 Structure
+
+Each branch holds a focused environment:
+- 🪟 **`windows`**
+- 🐧 **`nixos`**
+- 📄 **`main`**: Minimal setup, staging ground for future configs
+
+## 🔧 Usage
+
+```bash
+git clone -b nixos https://github.com/your-username/dotfiles ~/.config
+# Or switch to desired branch after cloning
+```
