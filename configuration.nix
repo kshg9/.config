@@ -17,8 +17,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # Pick only one of the below networking options.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
@@ -39,10 +37,30 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
   hardware.enableAllFirmware = true;
-  services.xserver = {
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # Enable CUPS to print documents.
+  # services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  services.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
     enable = true;
-    windowManager.qtile.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+
+    # use the example session manager (no others are packaged yet so this is enabled by def>
+    # no need to redefine it in your config for now)
+    #media-session.enable = true;
   };
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -65,7 +83,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ion = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -76,12 +94,11 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     pamixer
     wget
     wezterm
     btop
-    rofi
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -107,12 +124,6 @@
         };
       };
     };
-  };
-
-  services.picom = {
-    enable = true;
-    backend = "glx";
-    fade = true;
   };
 
   # Enable the OpenSSH daemon.
